@@ -78,7 +78,7 @@ st.info(
 )
 
 with st.expander("Developer Debug Info"):
-    st.write("Secret:", st.session_state.secret)
+    st.write("Secret:", st.session_state.secret if st.session_state.get("show_hint", True) else "???")
     st.write("Attempts:", st.session_state.attempts)
     st.write("Score:", st.session_state.score)
     st.write("Difficulty:", difficulty)
@@ -95,7 +95,7 @@ with col1:
 with col2:
     new_game = st.button("New Game 🔁")
 with col3:
-    show_hint = st.checkbox("Show hint", value=True)
+    show_hint = st.checkbox("Show hint", value=True, key="show_hint")
     
 # FIXME: Attempts counter does not reset when starting a new game
 if new_game:
