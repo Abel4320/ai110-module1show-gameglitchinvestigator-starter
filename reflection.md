@@ -7,7 +7,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - What did the game look like the first time you ran it?
 - List at least two concrete bugs you noticed at the start  
   (for example: "the hints were backwards").
-
+  
+When I first ran the game, the front end loaded correctly and the interface showed the expected text and buttons. However, I noticed several issues while playing. The attempts counter stayed at 0 even after starting a new game, the “Show Hint” checkbox did not hide the hint when it was unchecked, and when I entered a number lower than the secret number, the game incorrectly told me to “go lower” instead of “go higher.”
 ---
 
 ## 2. How did you use AI as a teammate?
