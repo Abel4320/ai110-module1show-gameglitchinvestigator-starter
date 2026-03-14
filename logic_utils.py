@@ -9,18 +9,12 @@ def parse_guess(raw: str):
 
     Returns: (ok: bool, guess_int: int | None, error_message: str | None)
     """
-    if raw is None or raw == "":
-        return False, None, "Enter a guess."
-
+    if not raw.strip():
+        return False, None, "Please enter a number."
     try:
-        if "." in raw:
-            value = int(float(raw))
-        else:
-            value = int(raw)
-    except Exception:
-        return False, None, "That is not a number."
-
-    return True, value, None
+        return True, int(raw.strip()), None
+    except ValueError:
+        return False, None, f"'{raw}' is not a valid number."
 
 
 def check_guess(guess, secret):
@@ -36,6 +30,10 @@ def check_guess(guess, secret):
     return "Too Low", "📈 Go HIGHER!"
 
 
-def update_score(current_score: int, outcome: str, attempt_number: int):
-    """Update score based on outcome and attempt number."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+# FIX: Implemented simple deterministic scoring — +1 for correct, -1 for wrong.
+# Removed attempt_number since score no longer depends on it.
+def update_score(current_score: int, outcome: str) -> int:
+    """Update score based on outcome. +1 for Win, -1 for any wrong guess."""
+    if outcome == "Win":
+        return current_score + 1
+    return current_score - 1
