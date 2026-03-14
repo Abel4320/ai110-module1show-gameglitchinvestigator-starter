@@ -1,6 +1,24 @@
+import random
+
+
+# FIXME: Normal and Hard ranges were swapped — Normal had the widest range and Hard had a narrower one,
+# making Hard easier to guess than Normal. Corrected to match intended difficulty order.
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    if difficulty == "Easy":
+        return 1, 20
+    if difficulty == "Normal":
+        # FIX: was 1-100, corrected to 1-50
+        return 1, 50
+    if difficulty == "Hard":
+        # FIX: was 1-50, corrected to 1-100
+        return 1, 100
+    return 1, 100
+
+
+def generate_secret(low: int, high: int) -> int:
+    """Pick a random secret number in [low, high] inclusive."""
+    return random.randint(low, high)
 
 
 def parse_guess(raw: str):

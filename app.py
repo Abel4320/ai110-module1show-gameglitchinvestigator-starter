@@ -1,28 +1,11 @@
-import random
 import streamlit as st
-from logic_utils import parse_guess, check_guess
-
-
-# FIXME: Normal and Hard ranges were swapped — Normal had the widest range and Hard had a narrower one,
-# making Hard easier to guess than Normal. Corrected to match intended difficulty order.
-def get_range_for_difficulty(difficulty: str):
-    if difficulty == "Easy":
-        return 1, 20
-    if difficulty == "Normal":
-        # FIX: was 1-100, corrected to 1-50
-        return 1, 50
-    if difficulty == "Hard":
-        # FIX: was 1-50, corrected to 1-100
-        return 1, 100
-    return 1, 100
-
-
-# FIX: Simplified score logic after testing game behavior.
-# Correct guess = +1, wrong guess = -1, and New Game keeps the score.
-def update_score(current_score: int, outcome: str):
-    if outcome == "Win":
-        return current_score + 1
-    return current_score - 1
+from logic_utils import (
+    get_range_for_difficulty,
+    generate_secret,
+    parse_guess,
+    check_guess,
+    update_score,
+)
 
 
 # FIX: Shared helper used for first load, New Game, and difficulty change.
@@ -30,7 +13,7 @@ def update_score(current_score: int, outcome: str):
 # Score and input_counter are intentionally excluded — score persists across rounds,
 # and input_counter is incremented here to rotate the widget key and clear the box.
 def reset_round(low: int, high: int):
-    st.session_state.secret = random.randint(low, high)
+    st.session_state.secret = generate_secret(low, high)
     st.session_state.attempts = 0
     st.session_state.history = []
     st.session_state.status = "playing"
